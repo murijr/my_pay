@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MyPay</string>
+    <string name="app_name">My Pay</string>
+    <string name="text_btn_create_account">Criar carteira</string>
+    <string name="text_btn_login">Entrar</string>
 </resources>

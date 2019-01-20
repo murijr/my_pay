@@ -1,4 +1,4 @@
-package com.mofaia.mypay
+package com.mofaia.mypay.app
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

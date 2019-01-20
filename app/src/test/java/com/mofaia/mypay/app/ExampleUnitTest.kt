@@ -1,4 +1,4 @@
-package com.mofaia.mypay
+package com.mofaia.mypay.app
 
 import org.junit.Test
 

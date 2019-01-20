@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mofaia.mypay">
+    package="com.mofaia.mypay.app">
 
     <application
         android:allowBackup="true"
@@ -11,16 +11,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:launchMode="singleInstance"
-            android:name=".feature.startup.StartupActivity">
+            android:name=".feature.createAccountOrUserAuth.CreateAccountOrUserAuth">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:launchMode="singleInstance"
-            android:name=".feature.goToCreateAccountOrUserAuth.GoToCreateAccountOrUserAuth"/>
     </application>
 
 </manifest>

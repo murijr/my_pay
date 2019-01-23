@@ -1,5 +1,7 @@
 package com.mofaia.mypay.app.data.repository.authentication
 
+import com.mofaia.mypay.app.data.entity.User
+
 interface AuthenticationDataSource {
 
     fun login(email: String, password: String, onSuccess: () -> Unit, onError: () -> Unit)
@@ -8,6 +10,6 @@ interface AuthenticationDataSource {
 
     fun createAccount(email: String, password: String, onSuccess: () -> Unit, onError: () -> Unit)
 
-    fun getCurrentUser()
+    fun getCurrentUser(): User?
 
 }

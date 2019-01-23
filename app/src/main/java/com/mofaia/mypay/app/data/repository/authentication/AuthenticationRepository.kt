@@ -17,8 +17,6 @@ class AuthenticationRepository(private val dataSource: AuthenticationDataSource)
         dataSource.createAccount(email, password, onSuccess, onError)
     }
 
-    override fun getCurrentUser() {
-        dataSource.getCurrentUser()
-    }
+    override fun getCurrentUser() = dataSource.getCurrentUser()
 
 }

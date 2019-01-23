@@ -10,6 +10,7 @@ import com.mofaia.mypay.app.databinding.ActivityUserAuthBinding
 import com.mofaia.mypay.app.extension.configureToolbar
 import com.mofaia.mypay.app.extension.setContentView
 import com.mofaia.mypay.app.extension.showToast
+import com.mofaia.mypay.app.feature.workspace.WorkspaceActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserAuthActivity : AppCompatActivity() {
@@ -44,6 +45,7 @@ class UserAuthActivity : AppCompatActivity() {
 
     private fun handleAuthSuccessfully() {
         finishAffinity()
+        WorkspaceActivity.start(this)
     }
 
     private fun handleAuthFailure() {

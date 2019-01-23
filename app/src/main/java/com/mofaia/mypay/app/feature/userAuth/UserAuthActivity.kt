@@ -43,13 +43,12 @@ class UserAuthActivity : AppCompatActivity() {
     }
 
     private fun handleAuthSuccessfully() {
-        finishAfterTransition()
+        finishAffinity()
     }
 
     private fun handleAuthFailure() {
         showToast(R.string.text_auth_failure)
     }
-
 
     companion object {
         fun start(activity: Activity) {

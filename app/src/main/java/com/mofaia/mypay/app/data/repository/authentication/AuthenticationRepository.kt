@@ -1,4 +1,4 @@
-package com.mofaia.mypay.core.data.repository.authentication
+package com.mofaia.mypay.app.data.repository.authentication
 
 class AuthenticationRepository(private val dataSource: AuthenticationDataSource):
         AuthenticationDataSource {

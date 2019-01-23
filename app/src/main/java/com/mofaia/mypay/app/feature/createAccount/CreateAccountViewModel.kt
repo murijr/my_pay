@@ -1,7 +1,8 @@
-package com.mofaia.mypay.app.feature.authentication
+package com.mofaia.mypay.app.feature.createAccount
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSource
 
@@ -12,33 +13,37 @@ class CreateAccountViewModel(private val authenticationRepository: Authenticatio
     val password = ObservableField<String>()
     val repeatPassword = ObservableField<String>()
     val isValid = ObservableBoolean(false)
+    val accountCreatedSuccessfully = MutableLiveData<Boolean>()
+    val waiting = ObservableBoolean(false)
 
     fun createAccount() {
-        performValidation({ email: String, password: String ->
-            authenticationRepository.createAccount(email, password, {}, {})
+        waiting.set(true)
+        validate({ email: String, password: String ->
+            authenticationRepository.createAccount(email, password, {
+                waiting.set(false)
+                accountCreatedSuccessfully.value = true
+            }, {
+                waiting.set(false)
+                accountCreatedSuccessfully.value = false
+            })
         })
     }
 
     fun applyValidation() {
-        performValidation({ _: String, _: String -> isValid.set(true) }, {isValid.set(false)})
+        validate({ _: String, _: String -> isValid.set(true) }, {isValid.set(false)})
     }
 
-    private fun performValidation(onSuccess: ((String, String) -> Unit)? = null
-                                  , onError: (() -> Unit)? = null) {
-        validate(email.get(), password.get(), repeatPassword.get(),{ email, password ->
-            onSuccess?.invoke(email, password)
-        }, {
-            onError?.invoke()
-        })
-    }
+    private fun validate(onSuccess: (String, String) -> Unit, onError: (() -> Unit)? = null) {
 
-    private fun validate(email: String?, password: String?, repeatPassword: String?
-                        , onSuccess: (String, String) -> Unit, onError: () -> Unit) {
+        val emailProvided = email.get().orEmpty()
+        val passwordProvided = password.get().orEmpty()
+        val repeatedPasswordProvided = repeatPassword.get().orEmpty()
 
-        if((!email.isNullOrBlank()) && (!password.isNullOrBlank() && password == repeatPassword)) {
-            onSuccess(email, password)
+        if((!emailProvided.isBlank()) && (!passwordProvided.isBlank()
+                        && passwordProvided == repeatedPasswordProvided)) {
+            onSuccess(emailProvided, passwordProvided)
         }else {
-            onError()
+            onError?.invoke()
         }
 
     }

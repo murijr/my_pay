@@ -9,7 +9,10 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import com.mofaia.mypay.app.R
 import com.mofaia.mypay.app.databinding.ActivityCreateAccountBinding
+import com.mofaia.mypay.app.extension.configureToolbar
+import com.mofaia.mypay.app.extension.setContentView
 import com.mofaia.mypay.app.extension.showToast
+import com.mofaia.mypay.app.feature.userAuth.UserAuthActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CreateAccountActivity : AppCompatActivity() {
@@ -18,14 +21,16 @@ class CreateAccountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val contentView = setContentView<ActivityCreateAccountBinding>(
-                this, R.layout.activity_create_account)
-        contentView.viewModel = viewModel
+        setContentView<ActivityCreateAccountBinding>(viewModel, R.layout.activity_create_account)
         handleUI()
+        configureObservers()
     }
 
     private fun handleUI() {
         configureToolbar()
+    }
+
+    private fun configureObservers() {
         observeAttemptToCreateAccount()
     }
 
@@ -42,26 +47,12 @@ class CreateAccountActivity : AppCompatActivity() {
 
     private fun handleAccountCreatedSuccessfully() {
         showToast(R.string.text_account_created_successfully)
+        UserAuthActivity.start(this)
+        finishAfterTransition()
     }
 
     private fun handleAccountCreatedFailure() {
         showToast(R.string.text_account_created_failure)
-    }
-
-    private fun configureToolbar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        handleHomeBtnPressed(item?.itemId)
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun handleHomeBtnPressed(itemId: Int?) {
-        if(android.R.id.home == itemId) {
-            finish()
-        }
     }
 
     companion object {

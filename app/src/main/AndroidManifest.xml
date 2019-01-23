@@ -24,9 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.createAccount.CreateAccountActivity" />
+        <activity android:name=".feature.createAccount.CreateAccountActivity"
+            android:parentActivityName=".feature.createAccountOrUserAuth.CreateAccountOrUserAuthActivity"
+            android:label="@string/text_create_account"/>
         <activity
             android:name=".feature.userAuth.UserAuthActivity"
+            android:parentActivityName=".feature.createAccountOrUserAuth.CreateAccountOrUserAuthActivity"
             android:label="@string/title_activity_user_auth"/>
     </application>
 

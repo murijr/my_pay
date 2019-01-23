@@ -2,7 +2,7 @@ package com.mofaia.mypay.app.data.repository.authentication
 
 import com.google.firebase.auth.FirebaseAuth
 
-class AuthenticationFirestoreDataSource(private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()): AuthenticationDataSource {
+class AuthenticationFirebaseDataSource(private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()): AuthenticationDataSource {
 
     override fun login(email: String, password: String, onSuccess: () -> Unit, onError: () -> Unit) {
 

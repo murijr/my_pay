@@ -14,23 +14,33 @@ class CreateAccountViewModel(private val authenticationRepository: Authenticatio
     val repeatPassword = ObservableField<String>()
     val isValid = ObservableBoolean(false)
     val accountCreatedSuccessfully = MutableLiveData<Boolean>()
-    val waiting = ObservableBoolean(false)
+    val waitingForAccountCreation = ObservableBoolean(false)
 
     fun createAccount() {
-        waiting.set(true)
+        stateChangeToAttemptingCreateAccount()
         validate({ email: String, password: String ->
-            authenticationRepository.createAccount(email, password, {
-                waiting.set(false)
-                accountCreatedSuccessfully.value = true
-            }, {
-                waiting.set(false)
-                accountCreatedSuccessfully.value = false
-            })
+            authenticationRepository.createAccount(email, password
+                    , this::stateChangeToCreateAccountSuccessfully
+                    , this::stateChangeToCreateAccountFailure)
         })
     }
 
     fun applyValidation() {
         validate({ _: String, _: String -> isValid.set(true) }, {isValid.set(false)})
+    }
+
+    private fun stateChangeToAttemptingCreateAccount() {
+        waitingForAccountCreation.set(true)
+    }
+
+    private fun stateChangeToCreateAccountSuccessfully() {
+        waitingForAccountCreation.set(false)
+        accountCreatedSuccessfully.value = true
+    }
+
+    private fun stateChangeToCreateAccountFailure() {
+        waitingForAccountCreation.set(false)
+        accountCreatedSuccessfully.value = false
     }
 
     private fun validate(onSuccess: (String, String) -> Unit, onError: (() -> Unit)? = null) {

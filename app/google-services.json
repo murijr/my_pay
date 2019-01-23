@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1041101999342",
+    "firebase_url": "https://mypay-af982.firebaseio.com",
+    "project_id": "mypay-af982",
+    "storage_bucket": "mypay-af982.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041101999342:android:43eaf6938dac49ba",
+        "android_client_info": {
+          "package_name": "com.mofaia.mypay.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041101999342-ubsrm6s215d2itq45gad2phn6rkm1s4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mofaia.mypay.app",
+            "certificate_hash": "a3a170f6b23132ac1a18846ad082231a0ac1210d"
+          }
+        },
+        {
+          "client_id": "1041101999342-h456lqgemeloee7m65rhifg98pdg061q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsMWeWtng2ZTsWatRsP7WhOKexIgPPAF8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041101999342-h456lqgemeloee7m65rhifg98pdg061q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

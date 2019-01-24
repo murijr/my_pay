@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".feature.createAccountOrUserAuth.CreateAccountOrUserAuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,18 +24,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".feature.createAccount.CreateAccountActivity"
             android:label="@string/text_create_account"
             android:parentActivityName=".feature.createAccountOrUserAuth.CreateAccountOrUserAuthActivity" />
+
         <activity
             android:name=".feature.userAuth.UserAuthActivity"
             android:label="@string/title_activity_user_auth"
             android:parentActivityName=".feature.createAccountOrUserAuth.CreateAccountOrUserAuthActivity" />
+
         <activity
             android:name=".feature.workspace.WorkspaceActivity"
-            android:label="@string/title_activity_workspace"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_activity_workspace"/>
+
     </application>
 
 </manifest>

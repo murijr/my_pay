@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_dark"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".feature.workspace.WorkspaceActivity"
-    tools:showIn="@layout/app_bar_workspace">
+    tools:context=".feature.workspace.WorkspaceActivity">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -62,7 +60,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:elevation="2dp"
-        android:text="Total em BRL"
+        android:text="@string/label_amount_brl"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView" />
 
@@ -73,7 +71,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:elevation="2dp"
-        android:text="Total em BRITA"
+        android:text="@string/label_amount_brita"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
@@ -84,7 +82,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:elevation="2dp"
-        android:text="Total em Bitcoin"
+        android:text="@string/label_amount_bitcoin"
         app:layout_constraintStart_toStartOf="@+id/cardView3"
         app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
@@ -94,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:elevation="2dp"
-        android:text="R$ 100.000,00"
+        tools:text="R$ 100.000,00"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -106,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:elevation="2dp"
-        android:text="R$ 0,00"
+        tools:text="R$ 0,00"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/textView7"
@@ -118,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:elevation="2dp"
-        android:text="R$ 0,00"
+        tools:text="R$ 0,00"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/textView9"
@@ -130,7 +128,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:background="@android:color/transparent"
-        android:text="COMPRAR"
+        android:text="@string/text_btn_buy"
         app:layout_constraintBottom_toBottomOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/guideline_left" />
 
@@ -140,7 +138,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:background="@android:color/transparent"
-        android:text="COMPRAR"
+        android:text="@string/text_btn_buy"
         app:layout_constraintBottom_toBottomOf="@+id/cardView3"
         app:layout_constraintStart_toStartOf="@+id/cardView3" />
 
@@ -151,7 +149,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:text="VENDER"
+        android:text="@string/text_btn_sell"
         app:layout_constraintEnd_toStartOf="@+id/button9"
         app:layout_constraintStart_toEndOf="@+id/button7"
         app:layout_constraintTop_toTopOf="@+id/button7" />
@@ -162,7 +160,7 @@
         android:layout_height="28dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:text="TROCAR"
+        android:text="@string/text_btn_exchange"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintTop_toTopOf="@+id/button8" />
 
@@ -173,7 +171,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:text="VENDER"
+        android:text="@string/text_btn_sell"
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintStart_toEndOf="@+id/button4"
         app:layout_constraintTop_toTopOf="@+id/button4" />
@@ -184,7 +182,7 @@
         android:layout_height="28dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:text="TROCAR"
+        android:text="@string/text_btn_exchange"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintTop_toTopOf="@+id/button5" />
 
@@ -193,7 +191,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
-        android:text="R$ 2,00"
+        tools:text="R$ 2,00"
         android:textColor="@android:color/holo_red_light"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="@+id/button4"
@@ -205,7 +203,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
-        android:text="R$ 2,00"
+        tools:text="R$ 2,00"
         android:textColor="@android:color/holo_red_light"
         app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="@+id/button7"
@@ -217,7 +215,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
-        android:text="R$ 2,00"
+        tools:text="R$ 2,00"
         android:textColor="@android:color/holo_green_dark"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="@+id/button5"
@@ -229,7 +227,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
-        android:text="R$ 2,00"
+        tools:text="R$ 2,00"
         android:textColor="@android:color/holo_green_dark"
         app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toEndOf="@+id/button8"

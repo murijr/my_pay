@@ -29,4 +29,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_workspace">Minha Carteira</string>
+    <string name="text_btn_exchange">TROCAR</string>
+    <string name="text_btn_sell">VENDER</string>
+    <string name="text_btn_buy">COMPRAR</string>
+    <string name="label_amount_bitcoin">Total em Bitcoin</string>
+    <string name="label_amount_brita">Total em BRITA</string>
+    <string name="label_amount_brl">Total em BRL</string>
 </resources>

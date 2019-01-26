@@ -8,7 +8,7 @@ interface AuthenticationDataSource {
 
     fun logout()
 
-    fun createAccount(email: String, password: String, onSuccess: () -> Unit, onError: () -> Unit)
+    fun createAccount(email: String, password: String, onSuccess: (User) -> Unit, onError: () -> Unit)
 
     fun getCurrentUser(): User?
 

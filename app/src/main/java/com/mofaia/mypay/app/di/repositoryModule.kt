@@ -44,7 +44,7 @@ val repositoryModule = module {
 
     factory(FIRESTORE_COLLECTION_WALLET){FirebaseFirestore.getInstance().collection(COLLECTION_WALLET)}
 
-    factory<WalletDataSource>(WALLET_FIRESTORE_DATA_SOURCE){ WalletFirestoreDataSource(get(FIRESTORE_COLLECTION_WALLET)) }
+    factory<WalletDataSource>(WALLET_FIRESTORE_DATA_SOURCE){ WalletFirestoreDataSource(get(FIRESTORE_COLLECTION_WALLET), get()) }
 
     single<WalletDataSource>(WALLET_REPOSITORY){
         WalletRepository(get(WALLET_FIRESTORE_DATA_SOURCE)) }

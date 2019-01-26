@@ -4,9 +4,12 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mofaia.mypay.app.data.entity.User
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSource
+import com.mofaia.mypay.app.data.repository.wallet.WalletDataSource
 
-class CreateAccountViewModel(private val authenticationRepository: AuthenticationDataSource)
+class CreateAccountViewModel(private val authenticationRepository: AuthenticationDataSource
+                             , private val  walletRepository: WalletDataSource)
     : ViewModel() {
 
     val email = ObservableField<String>()
@@ -19,14 +22,19 @@ class CreateAccountViewModel(private val authenticationRepository: Authenticatio
     fun createAccount() {
         stateChangeToAttemptingCreateAccount()
         validate({ email: String, password: String ->
-            authenticationRepository.createAccount(email, password
-                    , this::stateChangeToCreateAccountSuccessfully
-                    , this::stateChangeToCreateAccountFailure)
+            authenticationRepository.createAccount(email, password, {
+                stateChangeToCreateAccountSuccessfully()
+                creditInitialValueInWallet(it)
+            } , this::stateChangeToCreateAccountFailure)
         })
     }
 
     fun applyValidation() {
         validate({ _: String, _: String -> isValid.set(true) }, {isValid.set(false)})
+    }
+
+    private fun creditInitialValueInWallet(user: User) {
+        walletRepository.creditBRL(100000.00, user.id)
     }
 
     private fun stateChangeToAttemptingCreateAccount() {

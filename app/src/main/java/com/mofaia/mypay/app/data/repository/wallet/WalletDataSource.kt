@@ -4,6 +4,8 @@ interface WalletDataSource {
 
     fun creditBRL(value: Double)
 
+    fun creditBRL(value: Double, userId: String)
+
     fun creditBitcoin(value: Double)
 
     fun creditBrita(value: Double)
@@ -15,5 +17,11 @@ interface WalletDataSource {
     fun debitBrita(value: Double)
 
     fun getExtract()
+
+    fun getBRLBalance(onSuccess: (Double) -> Unit, onError: () -> Unit)
+
+    fun getBritaBalance(onSuccess: (Double) -> Unit, onError: () -> Unit)
+
+    fun getBiticoinBalance(onSuccess: (Double) -> Unit, onError: () -> Unit)
 
 }

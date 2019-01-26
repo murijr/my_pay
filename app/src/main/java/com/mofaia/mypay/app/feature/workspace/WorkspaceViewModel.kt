@@ -8,6 +8,11 @@ import com.mofaia.mypay.app.data.repository.wallet.WalletDataSource
 class WorkspaceViewModel(quotationRepository: QuotationDataSource
                          , walletRepository: WalletDataSource): ViewModel() {
 
+
+    val balanceBRL = ObservableField<Double>()
+    val balanceBrita = ObservableField<Double>(0.0)
+    val balanceBitcoin = ObservableField<Double>(0.0)
+
     val purchaseQuotationBitcoin = ObservableField<Double>()
     val purchaseQuotationBrita = ObservableField<Double>()
 
@@ -16,6 +21,14 @@ class WorkspaceViewModel(quotationRepository: QuotationDataSource
 
 
     init {
+
+
+        walletRepository.getBRLBalance(balanceBRL::set, {})
+
+        walletRepository.getBiticoinBalance(balanceBitcoin::set, {})
+
+        walletRepository.getBritaBalance(balanceBrita::set, {})
+
 
         quotationRepository.syncQuotations()
 

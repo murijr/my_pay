@@ -7,6 +7,9 @@ import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSou
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationFirebaseDataSource
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationRepository
 import com.mofaia.mypay.app.data.repository.quotation.*
+import com.mofaia.mypay.app.data.repository.wallet.WalletDataSource
+import com.mofaia.mypay.app.data.repository.wallet.WalletFirestoreDataSource
+import com.mofaia.mypay.app.data.repository.wallet.WalletRepository
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -38,6 +41,13 @@ val repositoryModule = module {
     factory(FIRESTORE_COLLECTION_QUOTATIONS){FirebaseFirestore.getInstance().collection(COLLECTION_QUOTATION)}
 
     factory<QuotationDataSource>(QUOTATIONS_FIRESTORE_DATA_SOURCE){ QuotationFirestoreDataSource(get(FIRESTORE_COLLECTION_QUOTATIONS)) }
+
+    factory(FIRESTORE_COLLECTION_WALLET){FirebaseFirestore.getInstance().collection(COLLECTION_WALLET)}
+
+    factory<WalletDataSource>(WALLET_FIRESTORE_DATA_SOURCE){ WalletFirestoreDataSource(get(FIRESTORE_COLLECTION_WALLET)) }
+
+    single<WalletDataSource>(WALLET_REPOSITORY){
+        WalletRepository(get(WALLET_FIRESTORE_DATA_SOURCE)) }
 
     single<QuotationDataSource>(QUOTATIONS_REPOSITORY){
         QuotationRepository(get(QUOTATIONS_FIRESTORE_DATA_SOURCE), get(), get(), get(), get(), get()) }

@@ -1,5 +1,5 @@
-# Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
-# EnclosingMethod is required to use InnerClasses.
+# Retrofit does reflection on generic parameters. InnerClasses is required toObject use Signature and
+# EnclosingMethod is required toObject use InnerClasses.
 -keepattributes Signature, InnerClasses, EnclosingMethod
 
 # Retain service method parameters when optimizing.

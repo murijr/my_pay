@@ -26,13 +26,20 @@ val repositoryModule = module {
                 .create(BritaQuotationService::class.java)
     }
 
+    single<BitcoinQuotationService> {
+        get<Retrofit.Builder>(RETROFIT_BUILDER_DEFAULT)
+                .baseUrl(QUOTATION_BITCOIN_ENDPOINT)
+                .build()
+                .create(BitcoinQuotationService::class.java)
+    }
+
     factory<AuthenticationDataSource> {AuthenticationRepository(AuthenticationFirebaseDataSource())}
 
-    factory(FIRESTORE_COLLECTION_QUOTATIONS){FirebaseFirestore.getInstance().collection("quotations/"  )}
+    factory(FIRESTORE_COLLECTION_QUOTATIONS){FirebaseFirestore.getInstance().collection(COLLECTION_QUOTATION)}
 
     factory<QuotationDataSource>(QUOTATIONS_FIRESTORE_DATA_SOURCE){ QuotationFirestoreDataSource(get(FIRESTORE_COLLECTION_QUOTATIONS)) }
 
     single<QuotationDataSource>(QUOTATIONS_REPOSITORY){
-        QuotationRepository(get(), get()) }
+        QuotationRepository(get(QUOTATIONS_FIRESTORE_DATA_SOURCE), get(), get(), get(), get(), get()) }
 
 }

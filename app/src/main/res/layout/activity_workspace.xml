@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.mofaia.mypay.app.util.CurrencyUtil"/>
         <variable
             name="viewModel"
             type="com.mofaia.mypay.app.feature.workspace.WorkspaceViewModel"/>
@@ -195,52 +196,56 @@
             app:layout_constraintTop_toTopOf="@+id/button5" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/purchaseQuotationBrita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            tools:text="R$ 2,00"
+            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.purchaseQuotationBrita)}"
             android:textColor="@android:color/holo_red_light"
             app:layout_constraintBottom_toTopOf="@+id/button4"
             app:layout_constraintEnd_toEndOf="@+id/button4"
             app:layout_constraintHorizontal_bias="0.463"
-            app:layout_constraintStart_toStartOf="@+id/button4" />
+            app:layout_constraintStart_toStartOf="@+id/button4"
+            tools:text="R$ 12,00" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/purchaseQuotationBitcoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            tools:text="R$ 2,00"
             android:textColor="@android:color/holo_red_light"
             app:layout_constraintBottom_toTopOf="@+id/button7"
             app:layout_constraintEnd_toEndOf="@+id/button7"
             app:layout_constraintHorizontal_bias="0.463"
-            app:layout_constraintStart_toStartOf="@+id/button7" />
+            app:layout_constraintStart_toStartOf="@+id/button7"
+            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.purchaseQuotationBitcoin)}"
+            tools:text="R$ 12,00" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/salesQuotationBrita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            tools:text="R$ 2,00"
             android:textColor="@android:color/holo_green_dark"
             app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintEnd_toEndOf="@+id/button5"
             app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/button5" />
+            app:layout_constraintStart_toStartOf="@+id/button5"
+            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.salesQuotationBrita)}"
+            tools:text="R$ 2,00" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/salesQuotationBitcoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            tools:text="R$ 2,00"
             android:textColor="@android:color/holo_green_dark"
             app:layout_constraintBottom_toTopOf="@+id/button8"
             app:layout_constraintEnd_toEndOf="@+id/button8"
             app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/button8" />
+            app:layout_constraintStart_toStartOf="@+id/button8"
+            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.salesQuotationBitcoin)}"
+            tools:text="R$ 2,00" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,4 +11,13 @@ class DateManipulator(private val locale: Locale) {
         return simpleDateFormat.format(date).toString()
     }
 
+    fun unixTimeStampToDate(unixTimeStamp: Long) = Date(unixTimeStamp * 1000)
+
+    fun stringToDate(format: String = "yyyy-MM-dd H:m:s.S", dateString: String): Date {
+
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.parse(dateString) as Date
+
+    }
+
 }

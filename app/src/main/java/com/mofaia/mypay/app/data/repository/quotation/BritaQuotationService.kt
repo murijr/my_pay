@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface BritaQuotationService {
-    @GET("odata/CotacaoDolarDia(dataCotacao='{date}')")
+    @GET("odata/CotacaoDolarDia(dataCotacao='{date}')?format=json")
     fun getQuotations(@Path("date") date: String): Deferred<Response<Map<String, Any>>>
 }

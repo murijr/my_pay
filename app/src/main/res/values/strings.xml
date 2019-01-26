@@ -6,7 +6,7 @@
     <string name="hint_text_input_repeat_password">Repita a senha</string>
     <string name="text_create_account">Criar conta</string>
     <string name="title_activity_user_auth">Login</string>
-    <!-- Strings related to login -->
+    <!-- Strings related toObject login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>

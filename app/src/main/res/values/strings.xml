@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Pay</string>
     <string name="text_btn_create_account">Criar carteira</string>
+    <string name="hint_text_input_amount">Quantidade</string>
     <string name="hint_text_input_email">Email</string>
     <string name="hint_text_input_password">Senha</string>
     <string name="hint_text_input_repeat_password">Repita a senha</string>
@@ -35,4 +36,8 @@
     <string name="label_amount_bitcoin">Total em Bitcoin</string>
     <string name="label_amount_brita">Total em BRITA</string>
     <string name="label_amount_brl">Total em BRL</string>
+    <string name="text_bitcoin_wallet_credit">Comprar Bitcoin</string>
+    <string name="text_brita_wallet_credit">Comprar Brita</string>
+    <string name="text_bitcoin_wallet_debit">Vender Bitcoin</string>
+    <string name="text_brita_wallet_debit">Vender Brita</string>
 </resources>

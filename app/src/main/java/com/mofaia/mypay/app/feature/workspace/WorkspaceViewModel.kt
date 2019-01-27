@@ -22,7 +22,6 @@ class WorkspaceViewModel(quotationRepository: QuotationDataSource
 
     init {
 
-
         walletRepository.getBRLBalance(balanceBRL::set, {})
 
         walletRepository.getBiticoinBalance(balanceBitcoin::set, {})

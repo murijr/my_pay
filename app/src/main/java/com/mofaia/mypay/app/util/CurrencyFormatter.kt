@@ -2,7 +2,7 @@ package com.mofaia.mypay.app.util
 
 import java.text.NumberFormat
 
-class CurrencyUtil {
+class CurrencyFormatter {
 
     companion object {
         @JvmStatic
@@ -10,6 +10,12 @@ class CurrencyUtil {
             val formatter = NumberFormat.getCurrencyInstance()
             return formatter.format(number)
         }
+
+        fun stringCurrencyToDouble(number: String): Double {
+            val replacedNumber = number.replace(Regex("[^\\d]"), "")
+            return replacedNumber.toDouble().div(100)
+        }
+
     }
 
 }

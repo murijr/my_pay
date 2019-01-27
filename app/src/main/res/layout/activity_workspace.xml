@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.mofaia.mypay.app.util.CurrencyUtil"/>
+        <import type="com.mofaia.mypay.app.util.CurrencyFormatter"/>
         <variable
             name="viewModel"
             type="com.mofaia.mypay.app.feature.workspace.WorkspaceViewModel"/>
@@ -102,7 +102,7 @@
             android:layout_marginTop="40dp"
             android:elevation="2dp"
             tools:text="R$ 100.000,00"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.balanceBRL)}"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.balanceBRL)}"
             android:textColor="@android:color/black"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -115,7 +115,7 @@
             android:layout_marginTop="40dp"
             android:elevation="2dp"
             tools:text="R$ 0,00"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.balanceBrita)}"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.balanceBrita)}"
             android:textColor="@android:color/black"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="@+id/textView7"
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:elevation="2dp"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.balanceBitcoin)}"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.balanceBitcoin)}"
             tools:text="R$ 0,00"
             android:textColor="@android:color/black"
             android:textSize="25sp"
@@ -135,7 +135,7 @@
             app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btn_purchase_brita"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
@@ -145,7 +145,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline_left" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_purchase_bitcoin"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
@@ -155,7 +155,7 @@
             app:layout_constraintStart_toStartOf="@+id/cardView3" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/btn_sell_bitcoin"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
@@ -163,8 +163,8 @@
             android:background="@android:color/transparent"
             android:text="@string/text_btn_sell"
             app:layout_constraintEnd_toStartOf="@+id/button9"
-            app:layout_constraintStart_toEndOf="@+id/button7"
-            app:layout_constraintTop_toTopOf="@+id/button7" />
+            app:layout_constraintStart_toEndOf="@+id/btn_purchase_bitcoin"
+            app:layout_constraintTop_toTopOf="@+id/btn_purchase_bitcoin" />
 
         <Button
             android:id="@+id/button9"
@@ -174,10 +174,10 @@
             android:background="@android:color/transparent"
             android:text="@string/text_btn_exchange"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-            app:layout_constraintTop_toTopOf="@+id/button8" />
+            app:layout_constraintTop_toTopOf="@+id/btn_sell_bitcoin" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btn_sell_brita"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
@@ -185,8 +185,8 @@
             android:background="@android:color/transparent"
             android:text="@string/text_btn_sell"
             app:layout_constraintEnd_toStartOf="@+id/button6"
-            app:layout_constraintStart_toEndOf="@+id/button4"
-            app:layout_constraintTop_toTopOf="@+id/button4" />
+            app:layout_constraintStart_toEndOf="@+id/btn_purchase_brita"
+            app:layout_constraintTop_toTopOf="@+id/btn_purchase_brita" />
 
         <Button
             android:id="@+id/button6"
@@ -196,19 +196,19 @@
             android:background="@android:color/transparent"
             android:text="@string/text_btn_exchange"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-            app:layout_constraintTop_toTopOf="@+id/button5" />
+            app:layout_constraintTop_toTopOf="@+id/btn_sell_brita" />
 
         <TextView
             android:id="@+id/purchaseQuotationBrita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.purchaseQuotationBrita)}"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.purchaseQuotationBrita)}"
             android:textColor="@android:color/holo_red_light"
-            app:layout_constraintBottom_toTopOf="@+id/button4"
-            app:layout_constraintEnd_toEndOf="@+id/button4"
+            app:layout_constraintBottom_toTopOf="@+id/btn_purchase_brita"
+            app:layout_constraintEnd_toEndOf="@+id/btn_purchase_brita"
             app:layout_constraintHorizontal_bias="0.463"
-            app:layout_constraintStart_toStartOf="@+id/button4"
+            app:layout_constraintStart_toStartOf="@+id/btn_purchase_brita"
             tools:text="R$ 12,00" />
 
         <TextView
@@ -217,11 +217,11 @@
             android:layout_height="wrap_content"
             android:elevation="2dp"
             android:textColor="@android:color/holo_red_light"
-            app:layout_constraintBottom_toTopOf="@+id/button7"
-            app:layout_constraintEnd_toEndOf="@+id/button7"
+            app:layout_constraintBottom_toTopOf="@+id/btn_purchase_bitcoin"
+            app:layout_constraintEnd_toEndOf="@+id/btn_purchase_bitcoin"
             app:layout_constraintHorizontal_bias="0.463"
-            app:layout_constraintStart_toStartOf="@+id/button7"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.purchaseQuotationBitcoin)}"
+            app:layout_constraintStart_toStartOf="@+id/btn_purchase_bitcoin"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.purchaseQuotationBitcoin)}"
             tools:text="R$ 12,00" />
 
         <TextView
@@ -230,11 +230,11 @@
             android:layout_height="wrap_content"
             android:elevation="2dp"
             android:textColor="@android:color/holo_green_dark"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
-            app:layout_constraintEnd_toEndOf="@+id/button5"
+            app:layout_constraintBottom_toTopOf="@+id/btn_sell_brita"
+            app:layout_constraintEnd_toEndOf="@+id/btn_sell_brita"
             app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/button5"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.salesQuotationBrita)}"
+            app:layout_constraintStart_toStartOf="@+id/btn_sell_brita"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.salesQuotationBrita)}"
             tools:text="R$ 2,00" />
 
         <TextView
@@ -243,11 +243,11 @@
             android:layout_height="wrap_content"
             android:elevation="2dp"
             android:textColor="@android:color/holo_green_dark"
-            app:layout_constraintBottom_toTopOf="@+id/button8"
-            app:layout_constraintEnd_toEndOf="@+id/button8"
+            app:layout_constraintBottom_toTopOf="@+id/btn_sell_bitcoin"
+            app:layout_constraintEnd_toEndOf="@+id/btn_sell_bitcoin"
             app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/button8"
-            android:text="@{CurrencyUtil.doubleToCurrency(viewModel.salesQuotationBitcoin)}"
+            app:layout_constraintStart_toStartOf="@+id/btn_sell_bitcoin"
+            android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.salesQuotationBitcoin)}"
             tools:text="R$ 2,00" />
 
 

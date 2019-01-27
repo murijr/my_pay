@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.mofaia.mypay.app.common.CurrencyConverter
 import com.mofaia.mypay.app.data.entity.Transaction
 import com.mofaia.mypay.app.data.repository.wallet.WalletDataSource
+import com.mofaia.mypay.app.extension.toMoney
+import java.math.BigDecimal
 
 class TransactionViewModel(private val walletRepository: WalletDataSource
                            , private val currencyConverter: CurrencyConverter): ViewModel() {
@@ -24,6 +26,8 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
         when(transactionType.get()) {
             Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT -> purchaseBitcoin()
             Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT -> purchaseBrita()
+            Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT -> saleBitcoin()
+            Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT -> saleBrita()
         }
 
     }
@@ -43,16 +47,40 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     }
 
     private fun saleBrita() {
+        val debit = currencyConverter.convert(amount.get(), quotation.get())
+        walletRepository.debitBrita(amount.get())
+        walletRepository.creditBRL(debit)
         transactionWasPerformed.value = true
     }
 
     private fun saleBitcoin() {
+        val debit = currencyConverter.convert(amount.get(), quotation.get())
+        walletRepository.debitBitcoin(amount.get())
+        walletRepository.creditBRL(debit)
         transactionWasPerformed.value = true
     }
 
     fun applyValidation() {
         validatePurchase()
+        validateSale()
     }
+
+    private fun validateSale() {
+        if(transactionType.get() != Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT
+                && transactionType.get() != Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT) return
+        if(isValidSale()) {
+            isValid.set(true)
+        } else {
+            isValid.set(false)
+        }
+    }
+
+    private fun isValidSale(): Boolean {
+        val balance = balance.get()
+        return balance.toMoney().amount >= BigDecimal.ZERO && (amount.get().toMoney().amount <= balance.toMoney().amount)
+    }
+
+
 
     private fun validatePurchase() {
         if(transactionType.get() != Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT
@@ -67,7 +95,7 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     private fun isValidPurchase(): Boolean {
         val debit = currencyConverter.convert(amount.get(), quotation.get())
         val balance = balance.get()
-        return balance > 0 && (amount.get() <= balance) && debit <= balance
+        return balance.toMoney().amount >= BigDecimal.ZERO && (amount.get().toMoney().amount <= balance.toMoney().amount) && debit.toMoney().amount <= balance.toMoney().amount
     }
 
 

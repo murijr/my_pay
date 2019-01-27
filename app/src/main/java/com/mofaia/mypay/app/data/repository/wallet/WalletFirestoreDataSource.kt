@@ -4,11 +4,12 @@ import com.google.firebase.firestore.CollectionReference
 import com.mofaia.mypay.app.constant.COLLECTION_TRANSACTIONS
 import com.mofaia.mypay.app.data.entity.Transaction
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSource
+import com.mofaia.mypay.app.extension.toMoney
 
 class WalletFirestoreDataSource(private val collections: CollectionReference
                                 , private val authenticationRepository: AuthenticationDataSource)
     : WalletDataSource {
-    private fun generateTransaction(value: Double, transactionType: String) = Transaction(value
+    private fun generateTransaction(value: Double, transactionType: String) = Transaction(value.toMoney().amount.toDouble()
             , transactionType)
 
     private fun getUserId() = authenticationRepository.getCurrentUser()!!.id

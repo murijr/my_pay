@@ -70,7 +70,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:enabled="@{viewModel.isValid.get()}"
+            android:enabled="@{viewModel.isValid}"
             android:id="@+id/btn_transaction"
             android:layout_width="191dp"
             android:layout_height="wrap_content"

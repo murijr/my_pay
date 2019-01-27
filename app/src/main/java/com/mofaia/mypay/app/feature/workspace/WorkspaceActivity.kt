@@ -46,14 +46,14 @@ class WorkspaceActivity : AppCompatActivity() {
 
     private fun handleClickBtnSellBitcoin() {
         viewModel.salesQuotationBitcoin.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
+            TransactionActivity.start(this,  it, viewModel.balanceBitcoin.get()!!
                     , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT)
         }
     }
 
     private fun handleClickBtnSellBrita() {
         viewModel.salesQuotationBrita.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
+            TransactionActivity.start(this,  it, viewModel.balanceBrita.get()!!
                     , Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT)
         }
     }
@@ -76,11 +76,13 @@ class WorkspaceActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        handleTransactionWasPerformed()
+        handleTransactionWasPerformed(requestCode, resultCode)
     }
 
-    private fun handleTransactionWasPerformed() {
-        showToast(R.string.transaction_was_performed)
+    private fun handleTransactionWasPerformed(requestCode: Int, resultCode: Int) {
+        if(requestCode == TransactionActivity.REQUEST_TRANSACTION && resultCode == TransactionActivity.RESULT_TRANSACTION_OK) {
+            showToast(R.string.transaction_was_performed)
+        }
     }
 
     companion object {

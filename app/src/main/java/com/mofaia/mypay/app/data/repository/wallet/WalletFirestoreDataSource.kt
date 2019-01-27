@@ -24,37 +24,37 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
 
     override fun creditBRL(value: Double) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BRL_WALLET_CREDIT))
+                , Transaction.TRANSACTION_TYPE_BRL_WALLET_CREDIT))
     }
 
     override fun creditBRL(value: Double, userId: String) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BRL_WALLET_CREDIT), userId)
+                , Transaction.TRANSACTION_TYPE_BRL_WALLET_CREDIT), userId)
     }
 
     override fun creditBitcoin(value: Double) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT))
+                , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT))
     }
 
     override fun creditBrita(value: Double) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT))
+                , Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT))
     }
 
     override fun debitBRL(value: Double) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BRL_WALLET_DEBIT))
+                , Transaction.TRANSACTION_TYPE_BRL_WALLET_DEBIT))
     }
 
     override fun debitBitcoin(value: Double) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT))
+                , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT))
     }
 
     override fun debitBrita(value: Double) {
         add(generateTransaction(value
-                , Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT))
+                , Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT))
     }
 
 
@@ -87,8 +87,8 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
                 onError()
             } else {
                 val transactionList = snapshot!!.toObjects(Transaction::class.java)
-                val calculateBalance = calculateBalance(transactionList, Transaction.TRNSACTION_TYPE_BRL_WALLET_CREDIT,
-                        Transaction.TRNSACTION_TYPE_BRL_WALLET_DEBIT)
+                val calculateBalance = calculateBalance(transactionList, Transaction.TRANSACTION_TYPE_BRL_WALLET_CREDIT,
+                        Transaction.TRANSACTION_TYPE_BRL_WALLET_DEBIT)
                 onSuccess(calculateBalance)
             }
 
@@ -103,8 +103,8 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
                 onError()
             } else {
                 val transactionList = snapshot!!.toObjects(Transaction::class.java)
-                val calculateBalance = calculateBalance(transactionList, Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT,
-                        Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT)
+                val calculateBalance = calculateBalance(transactionList, Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT,
+                        Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT)
                 onSuccess(calculateBalance)
             }
 
@@ -119,8 +119,8 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
                 onError()
             } else {
                 val transactionList = snapshot!!.toObjects(Transaction::class.java)
-                val calculateBalance = calculateBalance(transactionList, Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT,
-                        Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT)
+                val calculateBalance = calculateBalance(transactionList, Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT,
+                        Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT)
                 onSuccess(calculateBalance)
             }
 

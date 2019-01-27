@@ -33,28 +33,28 @@ class WorkspaceActivity : AppCompatActivity() {
     private fun handleClickBtnPurchaseBitcoin() {
         viewModel.purchaseQuotationBitcoin.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
-                    , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT)
+                    , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT)
         }
     }
 
     private fun handleClickBtnPurchaseBrita() {
         viewModel.purchaseQuotationBrita.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
-                    , Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT)
+                    , Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT)
         }
     }
 
     private fun handleClickBtnSellBitcoin() {
         viewModel.salesQuotationBitcoin.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBitcoin.get()!!
-                    , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT)
+                    , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT)
         }
     }
 
     private fun handleClickBtnSellBrita() {
         viewModel.salesQuotationBrita.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBrita.get()!!
-                    , Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT)
+                    , Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT)
         }
     }
 

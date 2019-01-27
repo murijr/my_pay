@@ -68,10 +68,10 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     private fun prepareTitleAndBtnText() = when(viewModel.transactionType.get()) {
-        Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT -> getString(R.string.text_bitcoin_wallet_credit)
-        Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT -> getString(R.string.text_brita_wallet_credit)
-        Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT -> getString(R.string.text_bitcoin_wallet_debit)
-        Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT -> getString(R.string.text_brita_wallet_debit)
+        Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT -> getString(R.string.text_bitcoin_wallet_credit)
+        Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT -> getString(R.string.text_brita_wallet_credit)
+        Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT -> getString(R.string.text_bitcoin_wallet_debit)
+        Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT -> getString(R.string.text_brita_wallet_debit)
         else -> ""
     }
 

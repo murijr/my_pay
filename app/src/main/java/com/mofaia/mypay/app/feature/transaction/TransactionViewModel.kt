@@ -24,10 +24,10 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     fun executeTransaction() {
 
         when(transactionType.get()) {
-            Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT -> purchaseBitcoin()
-            Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT -> purchaseBrita()
-            Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT -> saleBitcoin()
-            Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT -> saleBrita()
+            Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT -> purchaseBitcoin()
+            Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT -> purchaseBrita()
+            Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT -> saleBitcoin()
+            Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT -> saleBrita()
         }
 
     }
@@ -66,8 +66,8 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     }
 
     private fun validateSale() {
-        if(transactionType.get() != Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT
-                && transactionType.get() != Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT) return
+        if(transactionType.get() != Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT
+                && transactionType.get() != Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT) return
         if(isValidSale()) {
             isValid.set(true)
         } else {
@@ -83,8 +83,8 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
 
 
     private fun validatePurchase() {
-        if(transactionType.get() != Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT
-                && transactionType.get() != Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT) return
+        if(transactionType.get() != Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT
+                && transactionType.get() != Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT) return
         if(isValidPurchase()) {
             isValid.set(true)
         } else {

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Observer
 import com.mofaia.mypay.app.R
 import com.mofaia.mypay.app.common.MonetaryTextWatcher
 import com.mofaia.mypay.app.data.entity.Transaction
@@ -23,6 +24,7 @@ class TransactionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView<ActivityTransactionBinding>(viewModel, R.layout.activity_transaction)
         handleUI()
+        configureObservers()
     }
 
     private fun handleUI() {
@@ -30,6 +32,21 @@ class TransactionActivity : AppCompatActivity() {
         prepareExtraInfo()
         configureTitleAndBtnText()
         observerAmountTextChanged()
+    }
+
+    private fun configureObservers() {
+        observerTransactionWasPerformed()
+    }
+
+    private fun observerTransactionWasPerformed() {
+        viewModel.transactionWasPerformed.observe(this, Observer {
+            performResultOK()
+        })
+    }
+
+    private fun performResultOK() {
+        setResult(RESULT_TRANSACTION_OK)
+        finishAfterTransition()
     }
 
     private fun observerAmountTextChanged() {
@@ -61,6 +78,7 @@ class TransactionActivity : AppCompatActivity() {
     companion object {
 
         const val REQUEST_TRANSACTION = 12
+        const val RESULT_TRANSACTION_OK = 121
         const val EXTRA_QUOTATION = "EXTRA_QUOTATION"
         const val EXTRA_BALANCE = "EXTRA_BALANCE"
         const val EXTRA_TRANSACTION_TYPE = "EXTRA_TRANSACTION_TYPE"

@@ -8,6 +8,7 @@ import com.mofaia.mypay.app.R
 import com.mofaia.mypay.app.data.entity.Transaction
 import com.mofaia.mypay.app.databinding.ActivityWorkspaceBinding
 import com.mofaia.mypay.app.extension.setContentView
+import com.mofaia.mypay.app.extension.showToast
 import com.mofaia.mypay.app.feature.transaction.TransactionActivity
 import kotlinx.android.synthetic.main.activity_workspace.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -31,25 +32,29 @@ class WorkspaceActivity : AppCompatActivity() {
 
     private fun handleClickBtnPurchaseBitcoin() {
         viewModel.purchaseQuotationBitcoin.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!! , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT)
+            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
+                    , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_CREDIT)
         }
     }
 
     private fun handleClickBtnPurchaseBrita() {
         viewModel.purchaseQuotationBrita.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!, Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT)
+            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
+                    , Transaction.TRNSACTION_TYPE_BRITA_WALLET_CREDIT)
         }
     }
 
     private fun handleClickBtnSellBitcoin() {
         viewModel.salesQuotationBitcoin.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!, Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT)
+            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
+                    , Transaction.TRNSACTION_TYPE_BITCOIN_WALLET_DEBIT)
         }
     }
 
     private fun handleClickBtnSellBrita() {
         viewModel.salesQuotationBrita.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!, Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT)
+            TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
+                    , Transaction.TRNSACTION_TYPE_BRITA_WALLET_DEBIT)
         }
     }
 
@@ -67,6 +72,15 @@ class WorkspaceActivity : AppCompatActivity() {
 
     private fun observeClickBtnSellBrita() {
         btn_sell_brita.setOnClickListener {handleClickBtnSellBrita()}
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        handleTransactionWasPerformed()
+    }
+
+    private fun handleTransactionWasPerformed() {
+        showToast(R.string.transaction_was_performed)
     }
 
     companion object {

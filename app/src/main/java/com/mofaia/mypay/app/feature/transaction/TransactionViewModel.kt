@@ -3,6 +3,7 @@ package com.mofaia.mypay.app.feature.transaction
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mofaia.mypay.app.common.CurrencyConverter
 import com.mofaia.mypay.app.data.entity.Transaction
@@ -16,6 +17,7 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     val quotation = ObservableDouble()
     val balance = ObservableDouble()
     val isValid = ObservableBoolean(false)
+    val transactionWasPerformed = MutableLiveData<Boolean>()
 
     fun executeTransaction() {
 
@@ -26,22 +28,26 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
 
     }
 
-    fun purchaseBrita() {
+    private fun purchaseBrita() {
         val debit = currencyConverter.convert(amount.get(), quotation.get())
         walletRepository.debitBRL(debit)
         walletRepository.creditBrita(amount.get())
+        transactionWasPerformed.value = true
     }
 
-    fun purchaseBitcoin() {
+    private fun purchaseBitcoin() {
         val debit = currencyConverter.convert(amount.get(), quotation.get())
         walletRepository.debitBRL(debit)
         walletRepository.creditBitcoin(amount.get())
+        transactionWasPerformed.value = true
     }
 
-    fun saleBrita() {
+    private fun saleBrita() {
+        transactionWasPerformed.value = true
     }
 
-    fun saleBitcoin() {
+    private fun saleBitcoin() {
+        transactionWasPerformed.value = true
     }
 
     fun applyValidation() {

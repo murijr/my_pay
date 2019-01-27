@@ -3,6 +3,7 @@ package com.mofaia.mypay.app
 import android.app.Application
 import com.mofaia.mypay.app.di.commonModule
 import com.mofaia.mypay.app.di.mapperModule
+import com.mofaia.mypay.app.di.networkModule
 import com.mofaia.mypay.app.di.repositoryModule
 import com.mofaia.mypay.app.feature.createAccount.createAccountModule
 import com.mofaia.mypay.app.feature.createAccountOrUserAuth.createAccountOrUserAuthModule
@@ -15,7 +16,7 @@ class MyPayApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, arrayListOf(repositoryModule, createAccountModule
+        startKoin(this, arrayListOf(networkModule, repositoryModule, createAccountModule
                 , userAuthModule, createAccountOrUserAuthModule, workspaceModule
                 , commonModule, mapperModule, transactionModule))
     }

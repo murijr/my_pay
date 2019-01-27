@@ -16,26 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val repositoryModule = module {
 
-    factory<Retrofit.Builder>(RETROFIT_BUILDER_DEFAULT) {
-        Retrofit.Builder()
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
-    }
-
-    single<BritaQuotationService> {
-        get<Retrofit.Builder>(RETROFIT_BUILDER_DEFAULT)
-                .baseUrl(QUOTATION_BRITA_ENDPOINT)
-                .build()
-                .create(BritaQuotationService::class.java)
-    }
-
-    single<BitcoinQuotationService> {
-        get<Retrofit.Builder>(RETROFIT_BUILDER_DEFAULT)
-                .baseUrl(QUOTATION_BITCOIN_ENDPOINT)
-                .build()
-                .create(BitcoinQuotationService::class.java)
-    }
-
     factory<AuthenticationDataSource> {AuthenticationRepository(AuthenticationFirebaseDataSource())}
 
     factory(FIRESTORE_COLLECTION_QUOTATIONS){FirebaseFirestore.getInstance().collection(COLLECTION_QUOTATION)}

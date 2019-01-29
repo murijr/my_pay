@@ -17,6 +17,7 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     val amount = ObservableDouble()
     val transactionType = ObservableField<String>()
     val quotation = ObservableDouble()
+    val quotationB = ObservableDouble()
     val balance = ObservableDouble()
     val isValid = ObservableBoolean(false)
     val transactionWasPerformed = MutableLiveData<Boolean>()
@@ -28,8 +29,31 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
             Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT -> purchaseBrita()
             Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT -> saleBitcoin()
             Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT -> saleBrita()
+            Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_EXCHANGE -> exchangeBitcoin()
+            Transaction.TRANSACTION_TYPE_BRITA_WALLET_EXCHANGE -> exchangeBrita()
         }
 
+    }
+
+    private fun exchangeBrita() {
+        val am = amount.get()
+        val quo = quotation.get()
+
+        val debit = currencyConverter.convert(amount.get(), quotation.get())
+        //walletRepository.debitBrita(debit)
+        //walletRepository.creditBitcoin(amount.get())
+        transactionWasPerformed.value = true
+    }
+
+    private fun exchangeBitcoin() {
+
+        val am = amount.get()
+        val quo = quotation.get()
+
+        val debit = currencyConverter.convert(amount.get(), quotation.get())
+        //walletRepository.debitBitcoin(debit)
+        //walletRepository.creditBrita(amount.get())
+        transactionWasPerformed.value = true
     }
 
     private fun purchaseBrita() {
@@ -63,6 +87,13 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     fun applyValidation() {
         validatePurchase()
         validateSale()
+        validateExchange()
+    }
+
+    private fun validateExchange() {
+        if(transactionType.get() != Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_EXCHANGE
+                && transactionType.get() != Transaction.TRANSACTION_TYPE_BRITA_WALLET_EXCHANGE) return
+        isValid.set(true)
     }
 
     private fun validateSale() {

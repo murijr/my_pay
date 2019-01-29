@@ -162,12 +162,12 @@
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:text="@string/text_btn_sell"
-            app:layout_constraintEnd_toStartOf="@+id/button9"
+            app:layout_constraintEnd_toStartOf="@+id/btn_exchange_bitcoin"
             app:layout_constraintStart_toEndOf="@+id/btn_purchase_bitcoin"
             app:layout_constraintTop_toTopOf="@+id/btn_purchase_bitcoin" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/btn_exchange_bitcoin"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginEnd="8dp"
@@ -184,12 +184,12 @@
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:text="@string/text_btn_sell"
-            app:layout_constraintEnd_toStartOf="@+id/button6"
+            app:layout_constraintEnd_toStartOf="@+id/btn_exchange_brita"
             app:layout_constraintStart_toEndOf="@+id/btn_purchase_brita"
             app:layout_constraintTop_toTopOf="@+id/btn_purchase_brita" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btn_exchange_brita"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginEnd="8dp"
@@ -256,9 +256,9 @@
             android:layout_height="wrap_content"
             android:elevation="2dp"
             android:textColor="@android:color/holo_blue_light"
-            app:layout_constraintBottom_toTopOf="@+id/button9"
-            app:layout_constraintEnd_toEndOf="@+id/button9"
-            app:layout_constraintStart_toStartOf="@+id/button9"
+            app:layout_constraintBottom_toTopOf="@+id/btn_exchange_bitcoin"
+            app:layout_constraintEnd_toEndOf="@+id/btn_exchange_bitcoin"
+            app:layout_constraintStart_toStartOf="@+id/btn_exchange_bitcoin"
             android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.exchangeQuotationBitcoin)}"
             tools:text="R$ 2,00" />
 
@@ -269,9 +269,9 @@
             android:elevation="2dp"
             android:text="@{CurrencyFormatter.doubleToCurrency(viewModel.exchangeQuotationBrita)}"
             android:textColor="@android:color/holo_blue_light"
-            app:layout_constraintBottom_toTopOf="@+id/button6"
-            app:layout_constraintEnd_toEndOf="@+id/button6"
-            app:layout_constraintStart_toStartOf="@+id/button6"
+            app:layout_constraintBottom_toTopOf="@+id/btn_exchange_brita"
+            app:layout_constraintEnd_toEndOf="@+id/btn_exchange_brita"
+            app:layout_constraintStart_toStartOf="@+id/btn_exchange_brita"
             tools:text="R$ 2,00" />
 
 

@@ -46,7 +46,7 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun performResultOK() {
         setResult(RESULT_TRANSACTION_OK)
-        finishAfterTransition()
+        finish()
     }
 
     private fun observerAmountTextChanged() {
@@ -64,6 +64,7 @@ class TransactionActivity : AppCompatActivity() {
     private fun prepareExtraInfo() {
         intent.extras?.getDouble(EXTRA_BALANCE)?.let { viewModel.balance.set(it) }
         intent.extras?.getDouble(EXTRA_QUOTATION)?.let { viewModel.quotation.set(it) }
+        intent.extras?.getDouble(EXTRA_QUOTATION_B)?.let { viewModel.quotationB.set(it) }
         viewModel.transactionType.set(intent.extras?.getString(EXTRA_TRANSACTION_TYPE))
     }
 
@@ -72,6 +73,8 @@ class TransactionActivity : AppCompatActivity() {
         Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT -> getString(R.string.text_brita_wallet_credit)
         Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT -> getString(R.string.text_bitcoin_wallet_debit)
         Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT -> getString(R.string.text_brita_wallet_debit)
+        Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_EXCHANGE -> getString(R.string.text_bitcoin_wallet_exchange)
+        Transaction.TRANSACTION_TYPE_BRITA_WALLET_EXCHANGE -> getString(R.string.text_brita_wallet_exchange)
         else -> ""
     }
 
@@ -80,6 +83,7 @@ class TransactionActivity : AppCompatActivity() {
         const val REQUEST_TRANSACTION = 12
         const val RESULT_TRANSACTION_OK = 121
         const val EXTRA_QUOTATION = "EXTRA_QUOTATION"
+        const val EXTRA_QUOTATION_B = "EXTRA_QUOTATION_B"
         const val EXTRA_BALANCE = "EXTRA_BALANCE"
         const val EXTRA_TRANSACTION_TYPE = "EXTRA_TRANSACTION_TYPE"
 
@@ -90,6 +94,16 @@ class TransactionActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_BALANCE, balance)
             activity.startActivityForResult(intent, REQUEST_TRANSACTION)
         }
+
+        fun start(activity: Activity, quotation: Double, quotationB: Double, balance: Double, transactionType: String) {
+            val intent = Intent(activity, TransactionActivity::class.java)
+            intent.putExtra(EXTRA_TRANSACTION_TYPE, transactionType)
+            intent.putExtra(EXTRA_QUOTATION, quotation)
+            intent.putExtra(EXTRA_QUOTATION_B, quotationB)
+            intent.putExtra(EXTRA_BALANCE, balance)
+            activity.startActivityForResult(intent, REQUEST_TRANSACTION)
+        }
+
 
     }
 

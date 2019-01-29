@@ -28,6 +28,22 @@ class WorkspaceActivity : AppCompatActivity() {
         observeClickBtnPurchaseBrita()
         observeClickBtnSellBitcoin()
         observeClickBtnSellBrita()
+        observeClickBtnExchangeBitcoin()
+        observeClickBtnExchangeBrita()
+    }
+
+    private fun handleClickBtnExchangeBitcoin() {
+        viewModel.exchangeQuotationBrita.get()?.let {
+            TransactionActivity.start(this,  it, viewModel.balanceBitcoin.get()!!
+                    , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_EXCHANGE)
+        }
+    }
+
+    private fun handleClickBtnExchangeBrita() {
+        viewModel.exchangeQuotationBitcoin.get()?.let {
+            TransactionActivity.start(this,  it, viewModel.balanceBrita.get()!!
+                    , Transaction.TRANSACTION_TYPE_BRITA_WALLET_EXCHANGE)
+        }
     }
 
     private fun handleClickBtnPurchaseBitcoin() {
@@ -72,6 +88,14 @@ class WorkspaceActivity : AppCompatActivity() {
 
     private fun observeClickBtnSellBrita() {
         btn_sell_brita.setOnClickListener {handleClickBtnSellBrita()}
+    }
+
+    private fun observeClickBtnExchangeBitcoin() {
+        btn_exchange_bitcoin.setOnClickListener { handleClickBtnExchangeBitcoin() }
+    }
+
+    private fun observeClickBtnExchangeBrita() {
+        btn_exchange_brita.setOnClickListener { handleClickBtnExchangeBrita()}
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

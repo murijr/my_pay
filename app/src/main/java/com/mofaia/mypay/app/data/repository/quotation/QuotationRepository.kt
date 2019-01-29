@@ -25,24 +25,19 @@ class QuotationRepository(private val storeDataSource: QuotationDataSource
                                       , onLoadBritaSuccess: (Quotation) -> Unit) {
 
         GlobalScope.launch {
-
             val responseBrita = serviceBrita
                     .getQuotations(dataManipulator.getCurrentDate()).await()
 
             val responseBitcoin = serviceBitcoin.getQuotations().await()
 
-            if(responseBrita.isSuccessful) {
-                val quotation = mapperBritaMapper toObject responseBrita.body()
-                quotation?.let {
+            if(responseBitcoin.isSuccessful && responseBrita.isSuccessful) {
+                val quotationBitcoin = mapperBitcoinMapper toObject responseBitcoin.body()
+                val quotationBrita = mapperBritaMapper toObject responseBrita.body()
+                onLoadBitcoinSuccess(quotationBitcoin)
+                quotationBrita?.let {
                     onLoadBritaSuccess(it)
                 }
             }
-
-            if(responseBitcoin.isSuccessful) {
-                val quotation = mapperBitcoinMapper toObject responseBitcoin.body()
-                onLoadBitcoinSuccess(quotation)
-            }
-
         }
 
     }

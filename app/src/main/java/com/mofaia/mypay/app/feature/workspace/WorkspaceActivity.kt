@@ -80,7 +80,8 @@ class WorkspaceActivity : AppCompatActivity() {
     }
 
     private fun handleTransactionWasPerformed(requestCode: Int, resultCode: Int) {
-        if(requestCode == TransactionActivity.REQUEST_TRANSACTION && resultCode == TransactionActivity.RESULT_TRANSACTION_OK) {
+        if(requestCode == TransactionActivity.REQUEST_TRANSACTION && resultCode
+                == TransactionActivity.RESULT_TRANSACTION_OK) {
             showToast(R.string.transaction_was_performed)
         }
     }

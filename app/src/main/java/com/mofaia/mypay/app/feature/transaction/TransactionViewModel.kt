@@ -77,7 +77,8 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
 
     private fun isValidSale(): Boolean {
         val balance = balance.get()
-        return balance.toMoney().amount >= BigDecimal.ZERO && (amount.get().toMoney().amount <= balance.toMoney().amount)
+        return balance.toMoney().amount >= BigDecimal.ZERO
+                && (amount.get().toMoney().amount <= balance.toMoney().amount)
     }
 
 
@@ -95,7 +96,8 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     private fun isValidPurchase(): Boolean {
         val debit = currencyConverter.convert(amount.get(), quotation.get())
         val balance = balance.get()
-        return balance.toMoney().amount >= BigDecimal.ZERO && (amount.get().toMoney().amount <= balance.toMoney().amount) && debit.toMoney().amount <= balance.toMoney().amount
+        return balance.toMoney().amount >= BigDecimal.ZERO && (amount.get().toMoney().amount
+                <= balance.toMoney().amount) && debit.toMoney().amount <= balance.toMoney().amount
     }
 
 

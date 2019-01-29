@@ -7,6 +7,6 @@ import org.koin.dsl.module.module
 
 val workspaceModule = module {
 
-    viewModel { WorkspaceViewModel(get(QUOTATIONS_REPOSITORY), get(WALLET_REPOSITORY)) }
+    viewModel { WorkspaceViewModel(get(QUOTATIONS_REPOSITORY), get(WALLET_REPOSITORY), get()) }
 
 }

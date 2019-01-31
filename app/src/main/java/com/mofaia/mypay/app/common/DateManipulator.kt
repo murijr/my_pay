@@ -11,4 +11,9 @@ class DateManipulator(private val locale: Locale) {
         return simpleDateFormat.format(date).toString()
     }
 
+    fun formatt(date: Date, format: String = "MM-dd-yyyy H:mm:s"): String {
+        val simpleDateFormat = SimpleDateFormat(format, locale)
+        return simpleDateFormat.format(date).toString()
+    }
+
 }

@@ -8,6 +8,7 @@ import com.mofaia.mypay.app.di.repositoryModule
 import com.mofaia.mypay.app.feature.createAccount.createAccountModule
 import com.mofaia.mypay.app.feature.createAccountOrUserAuth.createAccountOrUserAuthModule
 import com.mofaia.mypay.app.feature.transaction.transactionModule
+import com.mofaia.mypay.app.feature.transactionList.transactionListModule
 import com.mofaia.mypay.app.feature.userAuth.userAuthModule
 import com.mofaia.mypay.app.feature.workspace.workspaceModule
 import org.koin.android.ext.android.startKoin
@@ -18,7 +19,7 @@ class MyPayApplication: Application() {
         super.onCreate()
         startKoin(this, arrayListOf(networkModule, repositoryModule, createAccountModule
                 , userAuthModule, createAccountOrUserAuthModule, workspaceModule
-                , commonModule, mapperModule, transactionModule))
+                , commonModule, mapperModule, transactionModule, transactionListModule))
     }
 
 }

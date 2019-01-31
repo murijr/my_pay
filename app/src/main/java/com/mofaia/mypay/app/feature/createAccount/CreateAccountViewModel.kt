@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mofaia.mypay.app.constant.INITIAL_CREDIT_VALUE_IN_WALLET
+import com.mofaia.mypay.app.data.entity.Transaction
 import com.mofaia.mypay.app.data.entity.User
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSource
 import com.mofaia.mypay.app.data.repository.wallet.WalletDataSource
@@ -36,7 +37,8 @@ class CreateAccountViewModel(private val authenticationRepository: Authenticatio
     }
 
     private fun creditInitialValueInWallet(user: User) {
-        walletRepository.creditBRL(BigDecimal(INITIAL_CREDIT_VALUE_IN_WALLET), user.id)
+        walletRepository.credit(BigDecimal(INITIAL_CREDIT_VALUE_IN_WALLET)
+                , user.id, Transaction.Type.BRL_CREDIT)
     }
 
     private fun stateChangeToAttemptingCreateAccount() {

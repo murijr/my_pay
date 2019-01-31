@@ -12,8 +12,10 @@ import com.mofaia.mypay.app.feature.transaction.TransactionActivity
 import kotlinx.android.synthetic.main.activity_workspace.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import android.view.Menu
+import android.view.MenuItem
 import com.mofaia.mypay.app.R
-
+import com.mofaia.mypay.app.feature.transactionList.TransactionListActivity
+import com.mofaia.mypay.app.feature.userAuth.UserAuthActivity
 
 class WorkspaceActivity : AppCompatActivity() {
 
@@ -35,28 +37,28 @@ class WorkspaceActivity : AppCompatActivity() {
     private fun handleClickBtnPurchaseBitcoin() {
         viewModel.purchaseQuotationBitcoin.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
-                    , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT)
+                    , Transaction.Type.BITCOIN_CREDIT)
         }
     }
 
     private fun handleClickBtnPurchaseBrita() {
         viewModel.purchaseQuotationBrita.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBRL.get()!!
-                    , Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT)
+                    , Transaction.Type.BRITA_CREDIT)
         }
     }
 
     private fun handleClickBtnSellBitcoin() {
         viewModel.salesQuotationBitcoin.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBitcoin.get()!!
-                    , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT)
+                    , Transaction.Type.BITCOIN_DEBIT)
         }
     }
 
     private fun handleClickBtnSellBrita() {
         viewModel.salesQuotationBrita.get()?.let {
             TransactionActivity.start(this,  it, viewModel.balanceBrita.get()!!
-                    , Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT)
+                    , Transaction.Type.BRITA_DEBIT)
         }
     }
 
@@ -92,6 +94,24 @@ class WorkspaceActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.workspace_menu, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.let {  handleItemMenuSelected(it.itemId) }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun handleItemMenuSelected(itemId: Int) {
+        when(itemId) {
+            R.id.report -> TransactionListActivity.start(this)
+            R.id.logout -> performLogout()
+        }
+    }
+
+    private fun performLogout() {
+        viewModel.logout()
+        UserAuthActivity.start(this)
+        finish()
     }
 
     companion object {

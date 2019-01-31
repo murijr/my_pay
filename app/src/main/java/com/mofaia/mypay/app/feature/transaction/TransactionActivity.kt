@@ -65,14 +65,14 @@ class TransactionActivity : AppCompatActivity() {
     private fun prepareExtraInfo() {
         intent.extras?.get(EXTRA_BALANCE)?.let { viewModel.balance.set(it as BigDecimal) }
         intent.extras?.get(EXTRA_QUOTATION)?.let { viewModel.quotation.set(it as BigDecimal) }
-        viewModel.transactionType.set(intent.extras?.getString(EXTRA_TRANSACTION_TYPE))
+        viewModel.transactionType.set(intent.extras?.getSerializable(EXTRA_TRANSACTION_TYPE) as Transaction.Type)
     }
 
     private fun prepareTitleAndBtnText() = when(viewModel.transactionType.get()) {
-        Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT -> getString(R.string.text_bitcoin_wallet_credit)
-        Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT -> getString(R.string.text_brita_wallet_credit)
-        Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT -> getString(R.string.text_bitcoin_wallet_debit)
-        Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT -> getString(R.string.text_brita_wallet_debit)
+        Transaction.Type.BITCOIN_CREDIT -> getString(R.string.text_bitcoin_wallet_credit)
+        Transaction.Type.BRITA_CREDIT -> getString(R.string.text_brita_wallet_credit)
+        Transaction.Type.BITCOIN_DEBIT -> getString(R.string.text_bitcoin_wallet_debit)
+        Transaction.Type.BRITA_DEBIT -> getString(R.string.text_brita_wallet_debit)
         else -> ""
     }
 
@@ -84,7 +84,8 @@ class TransactionActivity : AppCompatActivity() {
         const val EXTRA_BALANCE = "EXTRA_BALANCE"
         const val EXTRA_TRANSACTION_TYPE = "EXTRA_TRANSACTION_TYPE"
 
-        fun start(activity: Activity, quotation: BigDecimal, balance: BigDecimal, transactionType: String) {
+        fun start(activity: Activity, quotation: BigDecimal, balance: BigDecimal
+                  , transactionType: Transaction.Type) {
             val intent = Intent(activity, TransactionActivity::class.java)
             intent.putExtra(EXTRA_TRANSACTION_TYPE, transactionType)
             intent.putExtra(EXTRA_QUOTATION, quotation)

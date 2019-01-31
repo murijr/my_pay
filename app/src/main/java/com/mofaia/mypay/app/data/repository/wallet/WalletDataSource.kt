@@ -1,29 +1,19 @@
 package com.mofaia.mypay.app.data.repository.wallet
 
+import com.mofaia.mypay.app.data.entity.Transaction
 import java.math.BigDecimal
 
 interface WalletDataSource {
 
-    fun creditBRL(value: BigDecimal)
+    fun credit(value: BigDecimal, transactionType: Transaction.Type)
 
-    fun creditBRL(value: BigDecimal, userId: String)
+    fun credit(value: BigDecimal, userId: String, transactionType: Transaction.Type)
 
-    fun creditBitcoin(value: BigDecimal)
+    fun debit(value: BigDecimal, transactionType: Transaction.Type)
 
-    fun creditBrita(value: BigDecimal)
+    fun getExtract(onSuccess: (List<Transaction>) -> Unit, onError: () -> Unit)
 
-    fun debitBRL(value: BigDecimal)
-
-    fun debitBitcoin(value: BigDecimal)
-
-    fun debitBrita(value: BigDecimal)
-
-    fun getExtract()
-
-    fun getBRLBalance(onSuccess: (BigDecimal) -> Unit, onError: () -> Unit)
-
-    fun getBritaBalance(onSuccess: (BigDecimal) -> Unit, onError: () -> Unit)
-
-    fun getBiticoinBalance(onSuccess: (BigDecimal) -> Unit, onError: () -> Unit)
+    fun getBalance(creditTransactionType: Transaction.Type, debitTransactionType: Transaction.Type
+                   , onSuccess: (BigDecimal) -> Unit, onError: () -> Unit)
 
 }

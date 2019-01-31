@@ -1,15 +1,13 @@
 package com.mofaia.mypay.app.common
 
-import com.mofaia.mypay.app.extension.toMoney
-import org.joda.money.CurrencyUnit
-import java.math.RoundingMode
+import java.math.BigDecimal
 
 class CurrencyConverter {
 
-    fun convert(amount: Double, quotation: Double)
-            = (amount.toMoney().convertedTo(CurrencyUnit.USD, quotation.toMoney().amount, RoundingMode.CEILING)).amount.toDouble()
+    fun convert(amount: BigDecimal, quotation: BigDecimal)
+            = amount * quotation
 
-    fun getQuotation(quotationA: Double, quotationB: Double)
-            = (quotationA.toMoney().dividedBy(quotationB, RoundingMode.CEILING)).amount.toDouble()
+    fun getQuotation(quotationA: BigDecimal, quotationB: BigDecimal)
+            = quotationA / quotationB
 
 }

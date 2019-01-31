@@ -1,19 +1,20 @@
 package com.mofaia.mypay.app.util
 
+import java.math.BigDecimal
 import java.text.NumberFormat
 
 class CurrencyFormatter {
 
     companion object {
         @JvmStatic
-        fun doubleToCurrency(number: Double): String {
+        fun doubleToCurrency(number: BigDecimal): String {
             val formatter = NumberFormat.getCurrencyInstance()
             return formatter.format(number)
         }
 
-        fun stringCurrencyToDouble(number: String): Double {
+        fun stringCurrencyToBigDecimal(number: String): BigDecimal {
             val replacedNumber = number.replace(Regex("[^\\d]"), "")
-            return replacedNumber.toDouble().div(100)
+            return replacedNumber.toBigDecimal().divide(BigDecimal(100))
         }
 
     }

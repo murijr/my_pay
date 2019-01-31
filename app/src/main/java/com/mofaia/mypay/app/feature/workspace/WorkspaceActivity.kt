@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mofaia.mypay.app.R
 import com.mofaia.mypay.app.data.entity.Transaction
 import com.mofaia.mypay.app.databinding.ActivityWorkspaceBinding
 import com.mofaia.mypay.app.extension.setContentView
@@ -12,6 +11,9 @@ import com.mofaia.mypay.app.extension.showToast
 import com.mofaia.mypay.app.feature.transaction.TransactionActivity
 import kotlinx.android.synthetic.main.activity_workspace.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import android.view.Menu
+import com.mofaia.mypay.app.R
+
 
 class WorkspaceActivity : AppCompatActivity() {
 
@@ -28,22 +30,6 @@ class WorkspaceActivity : AppCompatActivity() {
         observeClickBtnPurchaseBrita()
         observeClickBtnSellBitcoin()
         observeClickBtnSellBrita()
-        observeClickBtnExchangeBitcoin()
-        observeClickBtnExchangeBrita()
-    }
-
-    private fun handleClickBtnExchangeBitcoin() {
-        viewModel.exchangeQuotationBrita.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBitcoin.get()!!
-                    , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_EXCHANGE)
-        }
-    }
-
-    private fun handleClickBtnExchangeBrita() {
-        viewModel.exchangeQuotationBitcoin.get()?.let {
-            TransactionActivity.start(this,  it, viewModel.balanceBrita.get()!!
-                    , Transaction.TRANSACTION_TYPE_BRITA_WALLET_EXCHANGE)
-        }
     }
 
     private fun handleClickBtnPurchaseBitcoin() {
@@ -90,14 +76,6 @@ class WorkspaceActivity : AppCompatActivity() {
         btn_sell_brita.setOnClickListener {handleClickBtnSellBrita()}
     }
 
-    private fun observeClickBtnExchangeBitcoin() {
-        btn_exchange_bitcoin.setOnClickListener { handleClickBtnExchangeBitcoin() }
-    }
-
-    private fun observeClickBtnExchangeBrita() {
-        btn_exchange_brita.setOnClickListener { handleClickBtnExchangeBrita()}
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         handleTransactionWasPerformed(requestCode, resultCode)
@@ -108,6 +86,12 @@ class WorkspaceActivity : AppCompatActivity() {
                 == TransactionActivity.RESULT_TRANSACTION_OK) {
             showToast(R.string.transaction_was_performed)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.workspace_menu, menu)
+        return true
     }
 
     companion object {

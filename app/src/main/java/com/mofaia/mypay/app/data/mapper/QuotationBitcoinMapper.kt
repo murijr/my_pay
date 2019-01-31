@@ -1,26 +1,38 @@
 package com.mofaia.mypay.app.data.mapper
 
+import com.google.firebase.firestore.DocumentSnapshot
 import com.mofaia.mypay.app.common.DateManipulator
 import com.mofaia.mypay.app.data.entity.Quotation
+import java.math.BigDecimal
 
-class QuotationBitcoinMapper(private val dataManipulator: DateManipulator): Mapper<Map<String, Any>?, Quotation> {
+class QuotationBitcoinMapper(private val dataManipulator: DateManipulator) {
 
-    override infix fun toObject(obj: Map<String, Any>?): Quotation {
+    infix fun toObject(obj: Map<String, Any>?): Quotation {
         val map = obj?.get(Quotation.BITCOIN_ROOT_KEY) as Map<*, *>
         val purchaseQuotation = map[Quotation.BITCOIN_PURCHASE_QUOTATION]
-                .toString().toDoubleOrNull()
+                .toString().toBigDecimal()
         val salesQuotation = map[Quotation.BITCOIN_SALES_QUOTATION]
-                .toString().toDoubleOrNull()
-        val dateHourQuotation = dataManipulator
-                .unixTimeStampToDate(map[Quotation.BITCOIN_DATEHOUR_QUOTATION].toString().toBigDecimal().longValueExact())
-        return Quotation(purchaseQuotation, salesQuotation, dateHourQuotation)
+                .toString().toBigDecimal()
+        return Quotation(purchaseQuotation, salesQuotation)
     }
 
-    override infix fun fromObject(obj: Quotation): Map<String, Any> {
+    infix fun toObject(obj: DocumentSnapshot): Quotation {
+
+        val quotation = Quotation()
+
+        obj[Quotation.BITCOIN_PURCHASE_QUOTATION]?.let {
+            quotation.purchaseQuotation = BigDecimal(it.toString())
+        }
+        obj[Quotation.BITCOIN_SALES_QUOTATION]?.let {
+            quotation.salesQuotation = BigDecimal(it.toString())
+        }
+        return quotation
+    }
+
+    infix fun fromObject(obj: Quotation): Map<String, Any> {
         val map = mutableMapOf<String, Any>()
         map[Quotation.BITCOIN_PURCHASE_QUOTATION] = obj.purchaseQuotation.toString()
         map[Quotation.BITCOIN_SALES_QUOTATION] = obj.salesQuotation.toString()
-        map[Quotation.BITCOIN_DATEHOUR_QUOTATION] = obj.dateHourQuotation.toString()
         return  map.toMap()
     }
 

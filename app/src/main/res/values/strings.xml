@@ -43,4 +43,6 @@
     <string name="transaction_was_performed">Transacão realizada com sucesso.</string>
     <string name="text_bitcoin_wallet_exchange">Trocar por brita</string>
     <string name="text_brita_wallet_exchange">trocar por bitcoin</string>
+    <string name="title_menu_item_report">Relatório</string>
+    <string name="title_menu_item_logout">Sair</string>
 </resources>

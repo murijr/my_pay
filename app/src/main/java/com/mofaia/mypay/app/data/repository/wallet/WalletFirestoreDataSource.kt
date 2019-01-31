@@ -3,75 +3,77 @@ package com.mofaia.mypay.app.data.repository.wallet
 import com.google.firebase.firestore.CollectionReference
 import com.mofaia.mypay.app.constant.COLLECTION_TRANSACTIONS
 import com.mofaia.mypay.app.data.entity.Transaction
+import com.mofaia.mypay.app.data.mapper.TransactionMapper
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSource
-import com.mofaia.mypay.app.extension.toMoney
+import java.math.BigDecimal
 
 class WalletFirestoreDataSource(private val collections: CollectionReference
-                                , private val authenticationRepository: AuthenticationDataSource)
+                                , private val authenticationRepository: AuthenticationDataSource
+                                , private val transactionMapper: TransactionMapper)
     : WalletDataSource {
-    private fun generateTransaction(value: Double, transactionType: String) = Transaction(value.toMoney().amount.toDouble()
+    private fun generateTransaction(value: BigDecimal, transactionType: String) = Transaction(value
             , transactionType)
 
     private fun getUserId() = authenticationRepository.getCurrentUser()!!.id
 
     private fun add(transaction: Transaction) {
-        collections.document(getUserId()).collection(COLLECTION_TRANSACTIONS).add(transaction)
+        collections.document(getUserId()).collection(COLLECTION_TRANSACTIONS).add(transactionMapper fromObject transaction)
     }
 
     private fun add(transaction: Transaction, userId: String) {
-        collections.document(userId).collection(COLLECTION_TRANSACTIONS).add(transaction)
+        collections.document(userId).collection(COLLECTION_TRANSACTIONS).add(transactionMapper fromObject transaction)
     }
 
-    override fun creditBRL(value: Double) {
+    override fun creditBRL(value: BigDecimal) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BRL_WALLET_CREDIT))
     }
 
-    override fun creditBRL(value: Double, userId: String) {
+    override fun creditBRL(value: BigDecimal, userId: String) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BRL_WALLET_CREDIT), userId)
     }
 
-    override fun creditBitcoin(value: Double) {
+    override fun creditBitcoin(value: BigDecimal) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT))
     }
 
-    override fun creditBrita(value: Double) {
+    override fun creditBrita(value: BigDecimal) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT))
     }
 
-    override fun debitBRL(value: Double) {
+    override fun debitBRL(value: BigDecimal) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BRL_WALLET_DEBIT))
     }
 
-    override fun debitBitcoin(value: Double) {
+    override fun debitBitcoin(value: BigDecimal) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT))
     }
 
-    override fun debitBrita(value: Double) {
+    override fun debitBrita(value: BigDecimal) {
         add(generateTransaction(value
                 , Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT))
     }
 
 
     private fun calculateBalance(transactions: List<Transaction>, creditTransactionType: String
-                      , debitTransactionType: String): Double {
+                      , debitTransactionType: String): BigDecimal {
 
         val creditTransactions = transactions
                 .filter { it.type.equals(creditTransactionType) }
                 .flatMap { listOf(it.value) }
-                .fold(0.0) { sum, element ->
+                .fold(BigDecimal.ZERO) { sum, element ->
                     sum.plus(element!!)
                 }
 
         val debitTransactions = transactions
                 .filter { it.type.equals(debitTransactionType) }
                 .flatMap { listOf(it.value) }
-                .fold(0.0) { sum, element ->
+                .fold(BigDecimal.ZERO) { sum, element ->
                     sum.plus(element!!)
                 }
 
@@ -79,14 +81,15 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
 
     }
 
-    override fun getBRLBalance(onSuccess: (Double) -> Unit, onError: () -> Unit) {
+    override fun getBRLBalance(onSuccess: (BigDecimal) -> Unit, onError: () -> Unit) {
 
         collections.document(getUserId()).collection(COLLECTION_TRANSACTIONS).addSnapshotListener {
             snapshot, exception ->
             if(exception != null && snapshot == null) {
                 onError()
             } else {
-                val transactionList = snapshot!!.toObjects(Transaction::class.java)
+
+                val transactionList = transactionMapper toObject snapshot!!.documents.toList()
                 val calculateBalance = calculateBalance(transactionList, Transaction.TRANSACTION_TYPE_BRL_WALLET_CREDIT,
                         Transaction.TRANSACTION_TYPE_BRL_WALLET_DEBIT)
                 onSuccess(calculateBalance)
@@ -96,13 +99,13 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
 
     }
 
-    override fun getBritaBalance(onSuccess: (Double) -> Unit, onError: () -> Unit) {
+    override fun getBritaBalance(onSuccess: (BigDecimal) -> Unit, onError: () -> Unit) {
         collections.document(getUserId()).collection(COLLECTION_TRANSACTIONS).addSnapshotListener {
             snapshot, exception ->
             if(exception != null && snapshot == null) {
                 onError()
             } else {
-                val transactionList = snapshot!!.toObjects(Transaction::class.java)
+                val transactionList = transactionMapper toObject snapshot!!.documents.toList()
                 val calculateBalance = calculateBalance(transactionList, Transaction.TRANSACTION_TYPE_BRITA_WALLET_CREDIT,
                         Transaction.TRANSACTION_TYPE_BRITA_WALLET_DEBIT)
                 onSuccess(calculateBalance)
@@ -112,13 +115,13 @@ class WalletFirestoreDataSource(private val collections: CollectionReference
 
     }
 
-    override fun getBiticoinBalance(onSuccess: (Double) -> Unit, onError: () -> Unit) {
+    override fun getBiticoinBalance(onSuccess: (BigDecimal) -> Unit, onError: () -> Unit) {
         collections.document(getUserId()).collection(COLLECTION_TRANSACTIONS).addSnapshotListener {
             snapshot, exception ->
             if(exception != null && snapshot == null) {
                 onError()
             } else {
-                val transactionList = snapshot!!.toObjects(Transaction::class.java)
+                val transactionList = transactionMapper toObject snapshot!!.documents.toList()
                 val calculateBalance = calculateBalance(transactionList, Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_CREDIT,
                         Transaction.TRANSACTION_TYPE_BITCOIN_WALLET_DEBIT)
                 onSuccess(calculateBalance)

@@ -30,13 +30,14 @@ class QuotationRepository(private val storeDataSource: QuotationDataSource
 
             val responseBitcoin = serviceBitcoin.getQuotations().await()
 
-            if(responseBitcoin.isSuccessful && responseBrita.isSuccessful) {
-                val quotationBitcoin = mapperBitcoinMapper toObject responseBitcoin.body()
-                val quotationBrita = mapperBritaMapper toObject responseBrita.body()
-                onLoadBitcoinSuccess(quotationBitcoin)
-                quotationBrita?.let {
-                    onLoadBritaSuccess(it)
-                }
+            if(!responseBitcoin.isSuccessful || !responseBrita.isSuccessful) return@launch
+
+            val quotationBitcoin = mapperBitcoinMapper toObject responseBitcoin.body()
+            val quotationBrita =  responseBrita.body()?.let { mapperBritaMapper toObject it }
+
+            onLoadBitcoinSuccess(quotationBitcoin)
+            quotationBrita?.let {
+                onLoadBritaSuccess(it)
             }
         }
 

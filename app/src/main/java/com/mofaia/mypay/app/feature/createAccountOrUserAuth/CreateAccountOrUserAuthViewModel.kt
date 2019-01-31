@@ -5,7 +5,7 @@ import com.mofaia.mypay.app.data.entity.User
 import com.mofaia.mypay.app.data.repository.authentication.AuthenticationDataSource
 
 class CreateAccountOrUserAuthViewModel
-(private val authenticationRepository: AuthenticationDataSource): ViewModel() {
+(authenticationRepository: AuthenticationDataSource): ViewModel() {
 
     val user: User? = authenticationRepository.getCurrentUser()
 

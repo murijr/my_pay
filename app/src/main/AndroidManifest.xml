@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".MyPayApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"

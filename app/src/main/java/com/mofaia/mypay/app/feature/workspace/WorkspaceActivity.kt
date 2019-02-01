@@ -32,6 +32,8 @@ class WorkspaceActivity : AppCompatActivity() {
         observeClickBtnPurchaseBrita()
         observeClickBtnSellBitcoin()
         observeClickBtnSellBrita()
+        observeClickBtnExchangeBitcoin()
+        observeClickBtnExchangeBrita()
     }
 
     private fun handleClickBtnPurchaseBitcoin() {
@@ -62,6 +64,20 @@ class WorkspaceActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleClickBtnExchangeBitcoin() {
+        viewModel.exchangeQuotationBitcoin.get()?.let {
+            TransactionActivity.start(this,  it, viewModel.balanceBitcoin.get()!!
+                    , Transaction.Type.BITCOIN_EXCHANGE)
+        }
+    }
+
+    private fun handleClickBtnExchangeBrita() {
+        viewModel.exchangeQuotationBrita.get()?.let {
+            TransactionActivity.start(this,  it, viewModel.balanceBrita.get()!!
+                    , Transaction.Type.BRITA_EXCHANGE)
+        }
+    }
+
     private fun observeClickBtnPurchaseBitcoin() {
         btn_purchase_bitcoin.setOnClickListener { handleClickBtnPurchaseBitcoin() }
     }
@@ -77,6 +93,15 @@ class WorkspaceActivity : AppCompatActivity() {
     private fun observeClickBtnSellBrita() {
         btn_sell_brita.setOnClickListener {handleClickBtnSellBrita()}
     }
+
+    private fun observeClickBtnExchangeBitcoin() {
+        btn_exchange_bitcoin.setOnClickListener { handleClickBtnExchangeBitcoin() }
+    }
+
+    private fun observeClickBtnExchangeBrita() {
+        btn_exchange_brita.setOnClickListener {handleClickBtnExchangeBrita()}
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

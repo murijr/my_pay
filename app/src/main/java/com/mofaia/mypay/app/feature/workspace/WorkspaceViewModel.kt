@@ -24,13 +24,26 @@ class WorkspaceViewModel(private val quotationRepository: QuotationDataSource
     val salesQuotationBitcoin = ObservableField<BigDecimal>(BigDecimal.ZERO)
     val salesQuotationBrita = ObservableField<BigDecimal>(BigDecimal.ZERO)
 
+    val exchangeQuotationBitcoin = ObservableField<BigDecimal>(BigDecimal("3411.36"))
+    val exchangeQuotationBrita = ObservableField<BigDecimal>(BigDecimal("0.00029"))
+
     init {
+        loadData()
+    }
 
+    private fun loadData() {
         quotationRepository.syncQuotations()
+        observeBalance()
+        observeQuotation()
+    }
 
+    private fun observeBalance() {
         walletRepository.getBalance(Transaction.Type.BRL_CREDIT, Transaction.Type.BRL_DEBIT, balanceBRL::set) {}
         walletRepository.getBalance(Transaction.Type.BITCOIN_CREDIT, Transaction.Type.BITCOIN_DEBIT, balanceBitcoin::set) {}
         walletRepository.getBalance(Transaction.Type.BRITA_CREDIT, Transaction.Type.BRITA_DEBIT, balanceBrita::set) {}
+    }
+
+    private fun observeQuotation() {
 
         quotationRepository.getBitcoinQuotation({
             purchaseQuotationBitcoin.set(it.purchaseQuotation.orEmpty())
@@ -43,6 +56,7 @@ class WorkspaceViewModel(private val quotationRepository: QuotationDataSource
         }, {})
 
     }
+
 
     fun logout() {
         authenticationRepository.logout()

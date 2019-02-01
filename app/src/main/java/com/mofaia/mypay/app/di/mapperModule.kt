@@ -6,7 +6,7 @@ import com.mofaia.mypay.app.data.mapper.TransactionMapper
 import org.koin.dsl.module.module
 
 val mapperModule = module {
-    factory { QuotationBitcoinMapper(get()) }
+    factory { QuotationBitcoinMapper() }
     factory { QuotationBritaMapper() }
     factory { TransactionMapper() }
 }

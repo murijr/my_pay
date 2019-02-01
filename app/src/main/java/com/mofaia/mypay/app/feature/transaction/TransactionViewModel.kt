@@ -26,10 +26,26 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
             Transaction.Type.BRITA_CREDIT -> purchaseBrita()
             Transaction.Type.BITCOIN_DEBIT -> saleBitcoin()
             Transaction.Type.BRITA_DEBIT -> saleBrita()
+            Transaction.Type.BITCOIN_EXCHANGE -> exchangeBitcoin()
+            Transaction.Type.BRITA_EXCHANGE -> exchangeBrita()
             else -> {
             }
         }
 
+    }
+
+    private fun exchangeBrita() {
+        val debit = currencyConverter.convert(amount.get()!!, quotation.get()!!)
+        walletRepository.debit(debit, Transaction.Type.BITCOIN_CREDIT)
+        walletRepository.credit(amount.get()!!, Transaction.Type.BRITA_DEBIT)
+        transactionWasPerformed.value = true
+    }
+
+    private fun exchangeBitcoin() {
+        val debit = currencyConverter.convert(amount.get()!!, quotation.get()!!)
+        walletRepository.debit(debit, Transaction.Type.BRITA_CREDIT)
+        walletRepository.credit(amount.get()!!, Transaction.Type.BITCOIN_DEBIT)
+        transactionWasPerformed.value = true
     }
 
     private fun purchaseBrita() {
@@ -66,8 +82,9 @@ class TransactionViewModel(private val walletRepository: WalletDataSource
     }
 
     private fun validateSale() {
-        if(transactionType.get() != Transaction.Type.BITCOIN_DEBIT
-                && transactionType.get() != Transaction.Type.BRITA_DEBIT) return
+        if((transactionType.get() != Transaction.Type.BITCOIN_DEBIT && transactionType.get() != Transaction.Type.BRITA_DEBIT)
+                && (transactionType.get() != Transaction.Type.BRITA_EXCHANGE && transactionType.get() != Transaction.Type.BITCOIN_EXCHANGE)
+        ) return
         if(isValidSale()) {
             isValid.set(true)
         } else {

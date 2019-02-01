@@ -13,7 +13,6 @@ data class Transaction(var value: BigDecimal? = null, var type: String? = null
 
     enum class Type {
         BRITA_CREDIT, BITCOIN_CREDIT, BRL_CREDIT, BRITA_DEBIT,
-        BITCOIN_DEBIT, BRL_DEBIT()
-
+        BITCOIN_DEBIT, BRL_DEBIT, BRITA_EXCHANGE, BITCOIN_EXCHANGE
     }
 }

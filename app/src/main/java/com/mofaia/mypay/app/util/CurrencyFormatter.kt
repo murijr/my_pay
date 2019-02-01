@@ -12,6 +12,13 @@ class CurrencyFormatter {
             return formatter.format(number)
         }
 
+        @JvmStatic
+        fun doubleToCurrency(number: BigDecimal, maximumFractionDigits: Int): String {
+            val formatter = NumberFormat.getCurrencyInstance()
+            formatter.maximumFractionDigits = maximumFractionDigits
+            return formatter.format(number)
+        }
+
         fun stringCurrencyToBigDecimal(number: String): BigDecimal {
             val replacedNumber = number.replace(Regex("[^\\d]"), "")
             return replacedNumber.toBigDecimal().divide(BigDecimal(100))

@@ -73,6 +73,8 @@ class TransactionActivity : AppCompatActivity() {
         Transaction.Type.BRITA_CREDIT -> getString(R.string.text_brita_wallet_credit)
         Transaction.Type.BITCOIN_DEBIT -> getString(R.string.text_bitcoin_wallet_debit)
         Transaction.Type.BRITA_DEBIT -> getString(R.string.text_brita_wallet_debit)
+        Transaction.Type.BITCOIN_EXCHANGE -> getString(R.string.text_bitcoin_wallet_exchange)
+        Transaction.Type.BRITA_EXCHANGE -> getString(R.string.text_brita_wallet_exchange)
         else -> ""
     }
 

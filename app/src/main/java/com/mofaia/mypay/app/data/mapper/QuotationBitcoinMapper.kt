@@ -1,11 +1,10 @@
 package com.mofaia.mypay.app.data.mapper
 
 import com.google.firebase.firestore.DocumentSnapshot
-import com.mofaia.mypay.app.common.DateManipulator
 import com.mofaia.mypay.app.data.entity.Quotation
 import java.math.BigDecimal
 
-class QuotationBitcoinMapper(private val dataManipulator: DateManipulator) {
+class QuotationBitcoinMapper() {
 
     infix fun toObject(obj: Map<String, Any>?): Quotation {
         val map = obj?.get(Quotation.BITCOIN_ROOT_KEY) as Map<*, *>
